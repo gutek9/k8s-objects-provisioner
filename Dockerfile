@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM scratch
-MAINTAINER Daniel Smith <dbsmith@google.com>
-ADD kubectl kubectl
+FROM ubuntu:14.04 
+ADD https://storage.googleapis.com/kubernetes-release/release/v1.3.0/bin/linux/amd64/kubectl /usr/bin/kubectl
+RUN chmod +x /usr/bin/kubectl
 ENTRYPOINT ["/kubectl"]
