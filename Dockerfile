@@ -15,4 +15,6 @@
 FROM ubuntu:14.04 
 ADD https://storage.googleapis.com/kubernetes-release/release/v1.3.0/bin/linux/amd64/kubectl /usr/bin/kubectl
 RUN chmod +x /usr/bin/kubectl
-ENTRYPOINT ["/kubectl"]
+ADD script.sh script.sh
+RUN chmod +x script.sh
+ENTRYPOINT ["/script.sh"]
