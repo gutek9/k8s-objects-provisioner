@@ -15,5 +15,5 @@ while [ 1 ]
 do
   sleep 15 &
   wait $!
-  kubectl apply -f /src/apay-be-int --recursive
+  kubectl apply -f /src/$NAMESPACE --recursive
 done
