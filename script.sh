@@ -29,7 +29,7 @@ do
   done < /tmp/filelist.process.txt
 
 
-  mv /tmp/filelist.new.txt > /tmp/filelist.txt
+  mv /tmp/filelist.new.txt  /tmp/filelist.txt
 
 done
 
