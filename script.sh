@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo "This is a idle script (infinite loop) to keep container running."
-echo "running kubectl.."
+echo "Provisioner is starting.."
 
 cleanup ()
 {
