@@ -13,12 +13,17 @@ trap cleanup SIGINT SIGTERM
 touch /tmp/filelist.txt || exit
 touch /tmp/secretlist.txt || exit
 
+  echo ""
+  echo "Provisoner will operate in ns $NAMESPACE  "
+  echo ""
+
 while [ 1 ]
 do
   sleep 15 &
   wait $!
 
   ############deployments
+
   find /src/$NAMESPACE   -type f -name *.yaml -not -path "*.git*"  -exec md5sum {} +   > /tmp/filelist.new.txt
    comm -1 -3 <(sort /tmp/filelist.txt) <(sort /tmp/filelist.new.txt) > /tmp/filelist.process.txt
 
