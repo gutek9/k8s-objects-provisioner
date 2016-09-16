@@ -1,6 +1,9 @@
 #!/bin/bash
 
 echo "Provisioner is starting.."
+echo ""
+echo "Provisoner will operate in ns $NAMESPACE  "
+echo ""
 
 cleanup ()
 {
@@ -13,9 +16,7 @@ trap cleanup SIGINT SIGTERM
 touch /tmp/filelist.txt || exit
 touch /tmp/secretlist.txt || exit
 
-  echo ""
-  echo "Provisoner will operate in ns $NAMESPACE  "
-  echo ""
+
 
 while [ 1 ]
 do
