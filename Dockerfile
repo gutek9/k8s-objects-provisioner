@@ -12,14 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubuntu:14.04
+FROM ubuntu:16.10
+ENV KUBECTL_VERSION=v1.3.4
 
 RUN apt-get update && \
   apt-get install -y parallel git ca-certificates --no-install-recommends && \
   apt-get clean -y && \
 rm -rf /var/lib/apt/lists/*
 
-ADD https://storage.googleapis.com/kubernetes-release/release/v1.3.0/bin/linux/amd64/kubectl /usr/bin/kubectl
+ADD https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl /usr/bin/kubectl
 RUN chmod +x /usr/bin/kubectl
 ADD script.sh script.sh
 RUN chmod +x script.sh
