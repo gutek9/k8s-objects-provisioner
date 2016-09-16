@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo ""
 echo "Provisioner is starting.."
 echo ""
 echo "Provisoner will operate in ns $NAMESPACE  "
