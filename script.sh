@@ -41,7 +41,3 @@ do
   ############
 
 done
-
-
-
-# find /dir -type f -name "*" -not -path "*.git*" -exec md5sum {} + | awk '{print $1}' | sort | md5sum
