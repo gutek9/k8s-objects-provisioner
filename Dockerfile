@@ -24,5 +24,5 @@ ADD https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/b
 RUN chmod +x /usr/bin/kubectl
 ADD script.sh script.sh
 ADD entrypoint.sh entrypoint.sh
-RUN chmod +x entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+RUN chmod +x script.sh
+ENTRYPOINT ["/script.sh"]
