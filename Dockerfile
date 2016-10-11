@@ -23,5 +23,6 @@ rm -rf /var/lib/apt/lists/*
 ADD https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl /usr/bin/kubectl
 RUN chmod +x /usr/bin/kubectl
 ADD script.sh script.sh
-RUN chmod +x script.sh
-ENTRYPOINT ["/script.sh"]
+ADD entrypoint.sh entrypoint.sh
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
