@@ -13,7 +13,7 @@
 # limitations under the License.
 
 FROM ubuntu:16.10
-ENV KUBECTL_VERSION=v1.3.4
+ENV KUBECTL_VERSION=v1.4.1
 
 RUN apt-get update && \
   apt-get install -y parallel git ca-certificates --no-install-recommends && \
