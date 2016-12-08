@@ -18,7 +18,7 @@ ENV KUBECTL_VERSION=v1.4.6
 RUN apt-get update && \
   apt-get install -y parallel git ca-certificates --no-install-recommends && \
   apt-get clean -y && \
-rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/*
 
 ADD https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl /usr/bin/kubectl
 RUN chmod +x /usr/bin/kubectl
