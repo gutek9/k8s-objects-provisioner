@@ -2,7 +2,7 @@
 echo ""
 echo "Provisioner is starting.."
 echo ""
-echo "Provisoner will operate in ns $NAMESPACE  "
+echo "Provisoner for deployments will operate in ns $DEPLOYMENT_DIR  "
 echo ""
 
 cleanup ()
@@ -25,7 +25,7 @@ do
 
   ############deployments
 
-  find /src/$NAMESPACE   -type f -name *.yaml -not -path "*.git*"  -exec md5sum {} +   > /tmp/filelist.new.txt
+  find /src/$DEPLOYMENT_DIR   -type f -name *.yaml -not -path "*.git*"  -exec md5sum {} +   > /tmp/filelist.new.txt
    comm -1 -3 <(sort /tmp/filelist.txt) <(sort /tmp/filelist.new.txt) > /tmp/filelist.process.txt
 
   while read line
