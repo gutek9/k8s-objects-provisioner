@@ -1,8 +1,6 @@
 #!/bin/bash
 echo ""
-echo "Provisioner is starting.."
-echo ""
-echo "Provisoner for deployments will operate in ns $DEPLOYMENT_DIR  "
+echo "Provisioner for $PROV_TYPE is starting.."
 echo ""
 
 cleanup ()
@@ -16,16 +14,14 @@ trap cleanup SIGINT SIGTERM
 touch /tmp/filelist.txt || exit
 touch /tmp/secretlist.txt || exit
 
-
-
 while [ 1 ]
 do
   sleep 1 &
   wait $!
 
-  ############deployments
+  ############quota
 
-  find /src/$DEPLOYMENT_DIR   -type f -name *.yaml -not -path "*.git*"  -exec md5sum {} +   > /tmp/filelist.new.txt
+  find /src/$NS_DIR   -type f -name *.yaml -not -path "*.git*"  -exec md5sum {} +   > /tmp/filelist.new.txt
    comm -1 -3 <(sort /tmp/filelist.txt) <(sort /tmp/filelist.new.txt) > /tmp/filelist.process.txt
 
   while read line
@@ -36,6 +32,9 @@ do
       echo  "File $SUBSTRING has changed, processing at $date"
       kubectl apply -f $SUBSTRING
   done < /tmp/filelist.process.txt
+
+  nslist=$(kubectl get ns -o json  |   jq -r '.items[].metadata.name')
+
 
   mv /tmp/filelist.new.txt  /tmp/filelist.txt
   ############
