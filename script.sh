@@ -20,7 +20,7 @@ touch /tmp/secretlist.txt || exit
 
 while [ 1 ]
 do
-  sleep 15 &
+  sleep 1 &
   wait $!
 
   ############deployments
