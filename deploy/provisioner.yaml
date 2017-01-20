@@ -1,0 +1,84 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: prov
+  namespace: somenamespace
+spec:
+  replicas: 1
+  strategy:
+      rollingUpdate:
+        maxUnavailable: 0
+        maxSurge: 1
+  template:
+    metadata:
+      labels:
+        run: prov
+    spec:
+      containers:
+      - name: git-sync
+        image: lukaszbielinski/git-sync:0.7
+        volumeMounts:
+        - name: markdown
+          mountPath: /git
+        - name: secr
+          mountPath: /root/.ssh/klucze
+        env:
+        - name: GIT_SYNC_REPO
+          value: ssh://git@github.com/objectsrepo.git
+        - name: GIT_SYNC_WAIT
+          value: "35"
+        - name: GIT_SYNC_DEST
+          value: /git
+
+      - name: prov-deployments
+        image: lukaszbielinski/kubectl-image:0.27
+        env:
+        - name: PROV_TYPE
+          value: generic
+        - name: DEPLOYMENT_DIR
+          value: deployments
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: markdown
+          mountPath: /src
+
+      - name: prov-secrets
+        image: lukaszbielinski/kubectl-image:0.27
+        env:
+        - name: PROV_TYPE
+          value: secrets
+        - name: SECRETS_DIR
+          value: secrets
+        volumeMounts:
+        - name: markdown
+          mountPath: /srcsecrets
+
+      - name: prov-configmap
+        image: lukaszbielinski/kubectl-image:0.27
+        env:
+        - name: PROV_TYPE
+          value: configmap
+        - name: CONFIGMAPS_DIR
+          value: configmaps
+        volumeMounts:
+        - name: markdown
+          mountPath: /srcconfigmap
+
+      - name: prov-ns
+        image: lukaszbielinski/kubectl-image:0.27
+        env:
+        - name: PROV_TYPE
+          value: quota
+        - name: NS_DIR
+          value: namespaces
+        volumeMounts:
+        - name: markdown
+          mountPath: /src
+
+
+      volumes:
+      - name: markdown
+        emptyDir: {}
+      - name: secr
+        secret:
+          secretName: keytogitrepo
