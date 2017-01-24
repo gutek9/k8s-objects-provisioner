@@ -25,12 +25,12 @@ d) quota type
 ##Configuration:
 ###example definition is in deploy directory of this repository  
 Configuration is i believe self explanatory  
-- you need to create with wich you can checkout objects repository  
-- provisioner types are:
-    -  generic
-    -  secrets  
-    -  configmap
-    -  quota
+- you need to create secret bb wich contains key id-rsa with wich you can checkout objects repository  
+- provisioner (env PROV_TYPE ) types are:
+    -  generic - default dir deployments ( env DEPLOYMENT_DIR)
+    -  secrets - default dir secrets ( env SECRETS_DIR)
+    -  configmap - default dir configmaps ( env CONFIGMAPS_DIR)
+    -  quota - default dir namespaces ( env NS_DIR)
 
 
 
