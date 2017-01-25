@@ -77,7 +77,7 @@ do
 
 
         # solution for deployment
-        podlist=$(kubectl --namespace=$NS get deployment -o json |  jq --arg secret $secName '.items[] | select(.spec.template.spec.volumes[].secret.secretName == $secret).metadata.name')
+        podlist=$(kubectl --namespace=$NS get deployment -o json |  jq --arg secret $secName '.items[] | select(.spec.template.spec.volumes[]?.secret.secretName == $secret).metadata.name')
 
           for i in $podlist
              do

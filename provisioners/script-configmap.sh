@@ -69,7 +69,7 @@ do
         kubectl --namespace=$NS create configmap  $secName --from-file=$SUBSTRING
 
         #generic solution
-        podlist=$(kubectl --namespace=$NS get pods -o json |  jq --arg secret $secName '.items[] | select(.spec.volumes[].configMap.name == $secret).metadata.name')
+        podlist=$(kubectl --namespace=$NS get pods -o json |  jq --arg secret $secName '.items[] | select(.spec.volumes[]?.configMap.name == $secret).metadata.name')
 
           for i in $podlist
              do
