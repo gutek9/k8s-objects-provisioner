@@ -1,5 +1,5 @@
 FROM ubuntu:16.10
-ENV KUBECTL_VERSION=v1.4.6
+ENV KUBECTL_VERSION=v1.5.2
 
 RUN apt-get update && \
   apt-get install -y bash vim jq parallel git ca-certificates --no-install-recommends && \
