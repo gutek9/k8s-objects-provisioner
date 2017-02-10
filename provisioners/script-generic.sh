@@ -1,41 +1,31 @@
 #!/bin/bash
-echo ""
-echo "Provisioner for $PROV_TYPE is starting.."
-echo ""
-echo "Provisoner for deployments will operate in ns $DEPLOYMENT_DIR  "
-echo ""
+. /provisioners/functions
+
+func_initialize $PROV_TYPE $DEPLOYMENT_DIR
 
 cleanup ()
 {
   kill -s SIGTERM $!
   exit 0
 }
-
 trap cleanup SIGINT SIGTERM
 
-touch /tmp/filelist.txt || exit
-touch /tmp/secretlist.txt || exit
-
 while [ 1 ]
-do
-  sleep $[ ( $RANDOM % 20 )  + 1 ]s &
-  wait $!
-
-  ############deployments -> generic apply on new files
-
-  find /src/$DEPLOYMENT_DIR   -type f -name *.yaml -not -path "*.git*"  -exec md5sum {} +   > /tmp/filelist.new.txt
-   comm -1 -3 <(sort /tmp/filelist.txt) <(sort /tmp/filelist.new.txt) > /tmp/filelist.process.txt
-
-  while read line
   do
-      # echo -e "$line \n"
-      SUBSTRING=$(echo $line|  cut -d' '  -f2)
-      date=$(date --iso-8601=seconds)
-      echo  "File $SUBSTRING has changed, processing at $date"
-      kubectl apply -f $SUBSTRING
-  done < /tmp/filelist.process.txt
+    sleep $[ ( $RANDOM % 20 )  + 1 ]s &
+    wait $!
 
-  mv /tmp/filelist.new.txt  /tmp/filelist.txt
-  ############
+      if ( set -o noclobber; echo $PROV_TYPE > "$lockfile") 2> /dev/null; then
+        trap 'rm -f "$lockfile"; exit $?' INT TERM EXIT
 
-done
+        func_apply_on_changed_files $DEPLOYMENT_DIR
+
+        # clean up after yourself, and release your trap
+        rm -f "$lockfile"
+        trap - INT TERM EXIT
+      else
+        date=$(date --iso-8601=seconds)
+        echo "$date Lock Exists: $lockfile owned by $(cat $lockfile)"
+      fi
+
+  done

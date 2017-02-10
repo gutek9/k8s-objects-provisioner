@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "Provisioner for $PROV_TYPE is starting.."
 echo ""
 
@@ -9,6 +10,8 @@ cleanup ()
 }
 
 trap cleanup SIGINT SIGTERM
+lockfile=/srcconfigmap/lock.kubectl
+
 
 #wait until configmaplist fill be created
 while [ ! -f /tmp/configmaplist.txt ]
@@ -69,7 +72,7 @@ do
         kubectl --namespace=$NS create configmap  $secName --from-file=$SUBSTRING
 
         #generic solution
-        podlist=$(kubectl --namespace=$NS get pods -o json |  jq --arg secret $secName '.items[] | select(.spec.volumes[]?.configMap.name == $secret).metadata.name')
+        podlist=$(kubectl --namespace=$NS get pods -o json |  jq --arg secret $secName '.items[] | select(.spec.volumes[].configMap.name == $secret).metadata.name')
 
           for i in $podlist
              do
