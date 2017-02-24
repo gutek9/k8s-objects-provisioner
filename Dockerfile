@@ -6,7 +6,7 @@ RUN apt-get update && \
   apt-get clean -y && \
   rm -rf /var/lib/apt/lists/*
 
-COPY https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl /usr/bin/kubectl
+ADD https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl /usr/bin/kubectl
 RUN chmod +x /usr/bin/kubectl
 
 COPY provisioners provisioners
