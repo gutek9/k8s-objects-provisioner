@@ -1,4 +1,4 @@
-FROM ubuntu:16.10
+FROM  oberthur/docker-ubuntu:16.04
 ENV KUBECTL_VERSION=v1.4.6
 
 RUN apt-get update && \
@@ -6,10 +6,10 @@ RUN apt-get update && \
   apt-get clean -y && \
   rm -rf /var/lib/apt/lists/*
 
-ADD https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl /usr/bin/kubectl
+COPY https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl /usr/bin/kubectl
 RUN chmod +x /usr/bin/kubectl
 
-ADD provisioners provisioners
+COPY provisioners provisioners
 RUN chmod -R +x provisioners
 
 ENV DEPLOYMENT_DIR deployments
