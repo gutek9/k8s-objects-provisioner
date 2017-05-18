@@ -1,4 +1,6 @@
 #!/bin/bash
+. /provisioners/functions
+func_initialize_check_force_update
 
 echo "Provisioner for $PROV_TYPE is starting.."
 echo ""

@@ -2,6 +2,7 @@
 . /provisioners/functions
 
 func_initialize $PROV_TYPE $DEPLOYMENT_DIR
+func_initialize_check_force_update
 
 cleanup ()
 {

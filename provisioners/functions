@@ -25,6 +25,16 @@ function func_initialize {
   echo ""
   touch /tmp/filelist.txt || exit
   lockfile=/src/lock.kubectl
+  lockfile_force_update=/src/lock.force_update
+}
+
+function func_initialize_check_force_update {
+  while [ -f "/src/lock.force_update" ]
+  do
+    date=$(date --iso-8601=seconds)
+    echo "Prov is running in force_update mode"
+    echo "$date Lock Exists: $lockfile_force_update owned by $(cat $lockfile_force_update)"
+  done
 }
 
 function func_initial_dir_list {
@@ -44,4 +54,8 @@ function func_initial_dir_list {
     done
   done
   echo "$(date --iso-8601=seconds) Initial list was created."
+}
+
+function func_create_secrets {
+
 }
