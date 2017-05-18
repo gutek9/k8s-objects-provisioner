@@ -1,8 +1,3 @@
-function testfunc {
-  echo bd6131bcfb5e9c3d635e52e495eb32b6
-}
-
-
 function func_apply_on_changed_files {
   find /src/$1   -type f -name *.yaml -not -path "*.git*"  -exec md5sum {} +   > /tmp/filelist.new.txt
   comm -1 -3 <(sort /tmp/filelist.txt) <(sort /tmp/filelist.new.txt) > /tmp/filelist.process.txt
