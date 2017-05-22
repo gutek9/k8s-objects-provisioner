@@ -19,14 +19,14 @@ function func_initialize {
   echo "Provisoner type $1 will operate in directory $2"
   echo ""
   touch /tmp/filelist.txt || exit
-  lockfile=/src/lock.kubectl
-  lockfile_force_update=/src/lock.force_update
+  lockfile=/tmp/lock.kubectl
+  lockfile_force_update=/tmp/lock.force_update
 }
 
 function func_initialize_check_force_update {
   ##head start for force-update provisioner
   sleep 15
-  while [ -f "/src/lock.force_update" ]
+  while [ -f "/tmp/lock.force_update" ]
   do
     date=$(date --iso-8601=seconds)
     echo "Prov is running in force_update mode"

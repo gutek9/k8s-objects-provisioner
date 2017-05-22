@@ -12,7 +12,7 @@ cleanup ()
 }
 
 trap cleanup SIGINT SIGTERM
-lockfile=/src/lock.kubectl
+lockfile=/tmp/lock.kubectl
 
 
 #wait until configmaplist fill be created
