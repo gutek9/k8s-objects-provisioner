@@ -24,6 +24,7 @@ function func_initialize {
 }
 
 function func_initialize_check_force_update {
+  lockfile_force_update=/tmp/lock.force_update
   ##head start for force-update provisioner
   sleep 15
   while [ -f "/tmp/lock.force_update" ]
