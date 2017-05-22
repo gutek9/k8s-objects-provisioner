@@ -32,6 +32,7 @@ function func_initialize_check_force_update {
     date=$(date --iso-8601=seconds)
     echo "Prov is running in force_update mode"
     echo "$date Lock Exists: $lockfile_force_update owned by $(cat $lockfile_force_update)"
+    sleep 15
   done
 }
 

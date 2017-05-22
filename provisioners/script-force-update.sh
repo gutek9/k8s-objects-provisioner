@@ -170,7 +170,7 @@ mv /tmp/configmaplist.new.txt  /tmp/configmaplist.txt
 
   mv /tmp/secretlist.new.txt  /tmp/dirlist.txt
   #labels
-  func_apply_on_changed_files $DEPLOYMENT_DIR/labels
+#  func_apply_on_changed_files $DEPLOYMENT_DIR/labels
   #deploymets
   func_apply_on_changed_files $DEPLOYMENT_DIR
 
