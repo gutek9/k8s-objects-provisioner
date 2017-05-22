@@ -21,6 +21,9 @@ d) quota type
 ⋅ designed for creating namespaces nad quotas  
 ⋅ after namespace/quota change kubectl apply is executed on changed file, to ensure proper state  
 
+d) force-update
+⋅ create all objects from repository
+
 
 ##Configuration:
 ###example definition is in deploy directory of this repository  
@@ -31,6 +34,4 @@ Configuration is i believe self explanatory
     -  secrets - default dir secrets ( env SECRETS_DIR)
     -  configmap - default dir configmaps ( env CONFIGMAPS_DIR)
     -  quota - default dir namespaces ( env NS_DIR)
-
-
-
+    -  force-update
