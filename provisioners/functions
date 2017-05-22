@@ -50,7 +50,3 @@ function func_initial_dir_list {
   done
   echo "$(date --iso-8601=seconds) Initial list was created."
 }
-
-function func_create_secrets {
-
-}
