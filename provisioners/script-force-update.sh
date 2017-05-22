@@ -43,7 +43,7 @@ do
   #configmaps
   echo "There is no file with configmap list yet"
   ###create configmaplist with hashes, avoid deleteing pods during startup
-  dir=/srcconfigmap/$CONFIGMAPS_DIR
+  dir=/src/$CONFIGMAPS_DIR
   nsList=$(ls -d $dir*/*/*/)
   # echo $nsList
 
@@ -66,7 +66,7 @@ do
   wait $!
 
   ############ configmap
-  dir=/srcconfigmap/$CONFIGMAPS_DIR
+  dir=/src/$CONFIGMAPS_DIR
   nsList=$(ls -d $dir*/*/*/)
   # echo $nsList
 

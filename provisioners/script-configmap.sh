@@ -12,7 +12,7 @@ cleanup ()
 }
 
 trap cleanup SIGINT SIGTERM
-lockfile=/srcconfigmap/lock.kubectl
+lockfile=/src/lock.kubectl
 
 
 #wait until configmaplist fill be created
@@ -21,7 +21,7 @@ do
   sleep 2
   echo "There is no file with configmap list yet"
   ###create configmaplist with hashes, avoid deleteing pods during startup
-  dir=/srcconfigmap/$CONFIGMAPS_DIR
+  dir=/src/$CONFIGMAPS_DIR
   nsList=$(ls -d $dir*/*/*/)
   # echo $nsList
 
@@ -44,7 +44,7 @@ do
   wait $!
 
   ############ configmap
-  dir=/srcconfigmap/$CONFIGMAPS_DIR
+  dir=/src/$CONFIGMAPS_DIR
   nsList=$(ls -d $dir*/*/*/)
   # echo $nsList
 
