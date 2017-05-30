@@ -24,6 +24,11 @@ d) quota type
 d) force-update
 ⋅ create all objects from repository
 
+#Force update on all objects
+To recreate all objects exec into pod and run
+
+bash /provisioners/force-update.sh
+
 
 ##Configuration:
 ###example definition is in deploy directory of this repository  
