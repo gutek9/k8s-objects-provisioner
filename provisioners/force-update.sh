@@ -12,6 +12,8 @@
 
 func_initialize $PROV_TYPE $DEPLOYMENT_DIR
 
+#clean before force update
+rm -rf /tmp/*
 
   #namespaces
     func_apply_on_changed_files $NS_DIR
@@ -143,6 +145,7 @@ mv /tmp/configmaplist.new.txt  /tmp/configmaplist.txt
 
   mv /tmp/secretlist.new.txt  /tmp/dirlist.txt
   #labels
+  echo labels
   func_apply_on_changed_files $DEPLOYMENT_DIR/labels
   #deploymets
   func_apply_on_changed_files $DEPLOYMENT_DIR
