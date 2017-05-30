@@ -51,7 +51,7 @@ spec:
           value: secrets
         volumeMounts:
         - name: markdown
-          mountPath: /srcsecrets
+          mountPath: /src
 
       - name: prov-configmap
         image: lukaszbielinski/kubectl-image:0.27
@@ -62,7 +62,7 @@ spec:
           value: configmaps
         volumeMounts:
         - name: markdown
-          mountPath: /srcconfigmap
+          mountPath: /src
 
       - name: prov-ns
         image: lukaszbielinski/kubectl-image:0.27
