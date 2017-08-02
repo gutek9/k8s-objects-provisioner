@@ -14,7 +14,7 @@ trap cleanup SIGINT SIGTERM
 lockfile=/tmp/lock.kubectl
 
 
-if [ "$PROVISONING_TYPE" == force ]; then
+if [[ "$PROVISONING_TYPE" == "force" ]]; then
   cd /src
   grep -l -r "kind: Namespace" . | xargs -I {} kubectl apply -f {}
 else
