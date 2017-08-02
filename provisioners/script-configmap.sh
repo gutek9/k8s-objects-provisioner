@@ -33,7 +33,7 @@ else
       hash=$(find $i -type f -name "*" -not -path "*.git*" -exec md5sum {} + | awk '{print $1}' | sort | md5sum | awk '{ print $1 }')
       echo "$hash  $i  " >> /tmp/configmaplist.txt
     done
-  fi
+  done
 done
 
 #avoid deleteing pods during startup
