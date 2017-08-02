@@ -23,19 +23,6 @@ function func_initialize {
   lockfile_force_update=/tmp/lock.force_update
 }
 
-function func_initialize_check_force_update {
-  lockfile_force_update=/tmp/lock.force_update
-  ##head start for force-update provisioner
-  sleep 15
-  while [ -f "/tmp/lock.force_update" ]
-  do
-    date=$(date --iso-8601=seconds)
-    echo "Prov is running in force_update mode"
-    echo "$date Lock Exists: $lockfile_force_update owned by $(cat $lockfile_force_update)"
-    sleep 15
-  done
-}
-
 function func_initial_dir_list {
   #wait until secretlist fill be created, avoid deleting pods during startup
   while [ ! -f /tmp/dirlist.txt ]
@@ -53,4 +40,11 @@ function func_initial_dir_list {
     done
   done
   echo "$(date --iso-8601=seconds) Initial list was created."
+}
+
+function func_force_update {
+  if [ $PROVISONING_TYPE == force ]; then
+    cd /src
+    grep -l -r "kind: Namespace" . | xargs -I {} kubectl apply -f {}
+  fi
 }

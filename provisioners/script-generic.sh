@@ -1,6 +1,6 @@
 #!/bin/bash
 . /provisioners/functions
-func_initialize_check_force_update
+func_force_update
 
 func_initialize $PROV_TYPE $DEPLOYMENT_DIR
 

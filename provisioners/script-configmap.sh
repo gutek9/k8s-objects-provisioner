@@ -1,6 +1,5 @@
 #!/bin/bash
 . /provisioners/functions
-func_initialize_check_force_update
 
 echo "Provisioner for $PROV_TYPE is starting.."
 echo ""
@@ -15,22 +14,26 @@ trap cleanup SIGINT SIGTERM
 lockfile=/tmp/lock.kubectl
 
 
-#wait until configmaplist fill be created
-while [ ! -f /tmp/configmaplist.txt ]
-do
-  sleep 2
-  echo "There is no file with configmap list yet"
-  ###create configmaplist with hashes, avoid deleteing pods during startup
-  dir=/src/$CONFIGMAPS_DIR
-  nsList=$(ls -d $dir*/*/*/)
-  # echo $nsList
-
-  for i in $nsList
+if [ $PROVISONING_TYPE == force ]; then
+  cd /src
+  grep -l -r "kind: Namespace" . | xargs -I {} kubectl apply -f {}
+else
+  #wait until configmaplist fill be created
+  while [ ! -f /tmp/configmaplist.txt ]
   do
-    hash=$(find $i -type f -name "*" -not -path "*.git*" -exec md5sum {} + | awk '{print $1}' | sort | md5sum | awk '{ print $1 }')
-    echo "$hash  $i  " >> /tmp/configmaplist.txt
-  done
+    sleep 2
+    echo "There is no file with configmap list yet"
+    ###create configmaplist with hashes, avoid deleteing pods during startup
+    dir=/src/$CONFIGMAPS_DIR
+    nsList=$(ls -d $dir*/*/*/)
+    # echo $nsList
 
+    for i in $nsList
+    do
+      hash=$(find $i -type f -name "*" -not -path "*.git*" -exec md5sum {} + | awk '{print $1}' | sort | md5sum | awk '{ print $1 }')
+      echo "$hash  $i  " >> /tmp/configmaplist.txt
+    done
+  fi
 done
 
 #avoid deleteing pods during startup

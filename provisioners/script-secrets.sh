@@ -1,6 +1,6 @@
 #!/bin/bash
 . /provisioners/functions
-func_initialize_check_force_update
+
 
 func_initialize $PROV_TYPE $SECRETS_DIR
 
@@ -13,7 +13,11 @@ cleanup ()
 trap cleanup SIGINT SIGTERM
 
 
-func_initial_dir_list $PROV_TYPE $SECRETS_DIR
+if [ $PROVISONING_TYPE == force ]; then
+  func_force_update
+else
+  func_initial_dir_list $PROV_TYPE $SECRETS_DIR
+fi
 
 
 ###run provisioning  process
