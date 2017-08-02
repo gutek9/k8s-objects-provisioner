@@ -1,6 +1,7 @@
 #!/bin/bash
 . /provisioners/functions
 
+
 echo "Provisioner for $PROV_TYPE is starting.."
 echo ""
 
@@ -15,8 +16,7 @@ lockfile=/tmp/lock.kubectl
 
 
 if [[ "$PROVISONING_TYPE" == "force" ]]; then
-  cd /src
-  grep -l -r "kind: Namespace" . | xargs -I {} kubectl apply -f {}
+  func_force_update
 else
   #wait until configmaplist fill be created
   while [ ! -f /tmp/configmaplist.txt ]

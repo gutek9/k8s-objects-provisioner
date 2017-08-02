@@ -1,4 +1,5 @@
 #!/bin/bash
+
 . /provisioners/functions
 func_force_update
 
