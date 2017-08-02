@@ -34,7 +34,7 @@ else
       echo "$hash  $i  " >> /tmp/configmaplist.txt
     done
   done
-done
+fi
 
 #avoid deleteing pods during startup
 date=$(date --iso-8601=seconds)
