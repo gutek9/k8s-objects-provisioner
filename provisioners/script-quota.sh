@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. /provisioners/functions
+source /provisioners/functions
 func_force_update
 
 func_initialize $PROV_TYPE $NS_DIR

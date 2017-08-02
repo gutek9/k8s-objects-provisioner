@@ -1,10 +1,6 @@
 #!/bin/bash
-
-. /provisioners/functions
-
-
+source /provisioners/functions
 func_initialize $PROV_TYPE $SECRETS_DIR
-
 
 cleanup ()
 {
@@ -14,7 +10,8 @@ cleanup ()
 trap cleanup SIGINT SIGTERM
 
 
-if [[ $PROVISONING_TYPE == "force" ]]; then
+
+if [[ "$PROVISONING_TYPE" == "force" ]]; then
   func_force_update
 else
   func_initial_dir_list $PROV_TYPE $SECRETS_DIR

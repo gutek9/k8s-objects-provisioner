@@ -45,7 +45,13 @@ function func_initial_dir_list {
 function func_force_update {
   if [[ "$PROVISONING_TYPE" == "force" ]]; then
     echo "PROVISONING_TYPE is set to force"
-    grep -l -r "kind: Namespace"  /src | tee
-    grep -l -r "kind: Namespace"  /src | xargs -I {} kubectl apply -f {} | tee
+    cd /src
+    while  [ ! -s  /src/.git/FETCH_HEAD ]
+    do
+      sleep 5
+    done
+    echo "FETCH_HEAD  exists"
+    grep -l -r 'kind: Namespace'  .
+    grep -l -r 'kind: Namespace'  . | xargs -I {} kubectl apply -f {}
   fi
 }

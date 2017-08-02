@@ -1,5 +1,5 @@
 #!/bin/bash
-. /provisioners/functions
+source /provisioners/functions
 
 
 echo "Provisioner for $PROV_TYPE is starting.."
