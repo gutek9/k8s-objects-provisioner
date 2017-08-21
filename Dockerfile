@@ -1,5 +1,5 @@
 FROM  oberthur/docker-ubuntu:16.04
-ENV KUBECTL_VERSION=v1.4.6
+ENV KUBECTL_VERSION=v1.7.1
 
 RUN apt-get update \
   && apt-get -y upgrade \
