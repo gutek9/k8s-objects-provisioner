@@ -87,7 +87,7 @@ do
       i=$(echo "$i" | tr -d '"')
       date=$(date --iso-8601=seconds)
       echo "$date Deleting pod $i in namespace $NS using configmap $secName "
-      kubectl --namespace=$NS delete pod    $i
+      kubectl --namespace=$NS patch deployment $i -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"configmapUpdate\":\"`date +'%s'`\"}}}}}"
       sleep 6
 
     done
