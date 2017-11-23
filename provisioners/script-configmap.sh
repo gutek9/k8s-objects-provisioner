@@ -77,7 +77,7 @@ do
     kubectl --namespace=$NS create configmap  $secName --from-file=$SUBSTRING
 
     #generic solution
-    podlist=$(kubectl --namespace=$NS get pods -o json |  jq --arg secret $secName '.items[] | select(.spec.volumes[].configMap.name == $secret).metadata.name')
+    podlist=$(kubectl --namespace=$NS get deployment -o json |  jq --arg configMap $secName '.items[] | select(.spec.template.spec.volumes[]?.configMap.name == $configMap).metadata.name')
 
     for i in $podlist
     do
@@ -86,8 +86,8 @@ do
       echo "currently processed pod $i"
       i=$(echo "$i" | tr -d '"')
       date=$(date --iso-8601=seconds)
-      echo "$date Deleting pod $i in namespace $NS using configmap $secName "
-      kubectl --namespace=$NS delete pod    $i
+      echo "$date Patching deployment $i in namespace $NS using configmap $secName "
+      kubectl --namespace=$NS patch deployment $i -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"configmapUpdate\":\"`date +'%s'`\"}}}}}"
       sleep 6
 
     done
