@@ -37,42 +37,9 @@ spec:
         - name: GIT_SYNC_WAIT
           value: "35"
 
-      - name: prov-deployments
-        image: provisioner:version
-        env:
-        - name: PROV_TYPE
-          value: generic
-        imagePullPolicy: Always
-        volumeMounts:
-        - name: markdown
-          mountPath: /src
-
-      - name: prov-secrets
+      - name: provisioner
         image: provisioner:version
         imagePullPolicy: Always
-        env:
-        - name: PROV_TYPE
-          value: secrets
-        volumeMounts:
-        - name: markdown
-          mountPath: /src
-
-      - name: prov-configmap
-        image: provisioner:version
-        imagePullPolicy: Always
-        env:
-        - name: PROV_TYPE
-          value: configmap
-        volumeMounts:
-        - name: markdown
-          mountPath: /src
-
-      - name: prov-ns
-        image: provisioner:version
-        imagePullPolicy: Always
-        env:
-        - name: PROV_TYPE
-          value: quota
         volumeMounts:
         - name: markdown
           mountPath: /src

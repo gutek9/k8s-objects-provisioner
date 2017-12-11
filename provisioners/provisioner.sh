@@ -62,22 +62,17 @@ function deployconfigmap {
 
 #set -x
 
-workspace=/tmp/provisioning
-mani_repo="ssh://git@bitbucket.otlabs.fr/tk/nerf-k8s-objects.git"
+workspace=/src
 oldlist=/tmp/oldlist
 newlist=/tmp/newlist
 donesec=()
 donemap=()
 
 # INITIAL LIST and CLONE
-mkdir $workspace
-git clone $mani_repo $workspace
 cd $workspace
 find ! -path "./.git*" -type f -exec md5sum "{}" + > $oldlist
 
 while true; do
-        git pull 
-
 	find ! -path "./.git*" -type f -exec md5sum "{}" + > $newlist
 
         for el in $( comm -1 -3 <(sort /tmp/oldlist) <(sort /tmp/newlist) | cut -d " " -f3 ); do
