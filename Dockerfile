@@ -9,9 +9,4 @@ RUN apt-get update \
 COPY provisioners provisioners
 RUN chmod -R +x provisioners
 
-ENV DEPLOYMENT_DIR deployments
-ENV SECRETS_DIR secrets
-ENV CONFIGMAPS_DIR configmaps
-ENV NS_DIR namespaces
-
-CMD ["bash", "-c", "/provisioners/script-${PROV_TYPE}.sh"]
+CMD ["bash", "-c", "/provisioners/provisioner.sh"]
