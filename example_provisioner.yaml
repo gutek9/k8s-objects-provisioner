@@ -13,9 +13,11 @@ spec:
     metadata:
       labels:
         run: prov
-      annotations:
-        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"master"}]'
     spec:
+      tolerations:
+      - key: "dedicated"
+        value: "master"
+        effect: "NoSchedule"
       nodeSelector:
         kubeadm.alpha.kubernetes.io/role: master
       containers:
