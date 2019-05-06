@@ -62,7 +62,7 @@ function deployconfigmap {
 
 #set -x
 
-workspace=/src
+workspace=${1:-/src}
 oldlist=/tmp/oldlist
 newlist=/tmp/newlist
 donesec=()
