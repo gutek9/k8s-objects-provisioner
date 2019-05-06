@@ -73,7 +73,7 @@ cd $workspace
 find ! -path "./.git*" -type f -exec md5sum "{}" + > $oldlist
 
 while true; do
-	find ! -path "./.git*" -type f -exec md5sum "{}" + > $newlist
+    find ! -path "./.git*" -type f -exec md5sum "{}" + > $newlist
 
         for el in $( comm -1 -3 <(sort /tmp/oldlist) <(sort /tmp/newlist) | cut -d " " -f3 ); do
 
@@ -81,17 +81,17 @@ while true; do
 
                 case "$el" in 
                         *namespaces*)
-				kubectl create -f $el 
-				;;
+                                kubectl create -f $el 
+                                ;;
                         *deployments*)
                                 kubectl apply -f $el 
-				;;
+                                ;;
                         *secrets*)
                                 if [[ "${donesec[@]}" != *"$pod"* ]]; then
                                         deploysecrets $el
                                 fi
                                 donesec+=($pod)
-				;;
+                                ;;
                         *configmaps*) 
                                 if [[ "${donemap[@]}" != *"$pod"* ]]; then
                                         deployconfigmap $el
