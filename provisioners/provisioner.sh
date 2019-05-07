@@ -73,6 +73,7 @@ cd $workspace
 find ! -path "./.git*" -type f -exec md5sum "{}" + > $oldlist
 
 while true; do
+    git pull
     find ! -path "./.git*" -type f -exec md5sum "{}" + > $newlist
 
         for el in $( comm -1 -3 <(sort /tmp/oldlist) <(sort /tmp/newlist) | cut -d " " -f3 ); do
