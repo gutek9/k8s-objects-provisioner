@@ -1,5 +1,23 @@
 #!/bin/bash
 
+LOCK_DIR="/tmp/provisioner.lock"
+
+function lock {
+    mkdir $LOCK_DIR 2> /dev/null
+    if [ -e "${LOCK_DIR}" ]; then
+        echo "Lock exist. Exitting..."
+        exit 1
+    fi
+}
+
+function remove_lock {
+    rm -rf $LOCK_DIR
+}
+
+trap remove_lock SIGINT
+trap remove_lock KILL
+trap remove_lock ERROR
+
 function get_data {
                 f=$1
                 ns=$( echo $f | cut -d "/" -f3 )
@@ -68,6 +86,8 @@ newlist=/tmp/newlist
 donesec=()
 donemap=()
 
+lock
+
 # INITIAL LIST and CLONE
 cd $workspace
 find ! -path "./.git*" -type f -exec md5sum "{}" + > $oldlist
@@ -112,3 +132,5 @@ while true; do
 
         sleep 10
 done
+
+remove_lock
