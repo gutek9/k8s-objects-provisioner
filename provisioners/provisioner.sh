@@ -3,11 +3,11 @@
 LOCK_DIR="/tmp/provisioner.lock"
 
 function lock {
-    mkdir $LOCK_DIR 2> /dev/null
     if [ -e "${LOCK_DIR}" ]; then
         echo "Lock exist. Exitting..."
         exit 1
     fi
+    mkdir $LOCK_DIR 2> /dev/null
 }
 
 function remove_lock {
